@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Devices</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbar.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/laptops.css') }}" />
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h1, h3 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 20px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        input[type="file"] {
+            padding: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+        td {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Button and Action Styles */
+        .action-btn {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .action-btn:hover {
+            background-color: #0056b3;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Image Styling */
+        .product-image {
+            width: 50px;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            table, form {
+                width: 90%;
+                margin: 10px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+        <div class="nav-brand">
+            <img src="{{ url_for('static', filename='images/laptop-icon.svg') }}" alt="TechLaptops Logo" class="nav-logo">
+            <span>Laptop Sales</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('laptops') }}">Laptops</a></li>
+            <li><a href="{{ url_for('about') }}">About Us</a></li>
+            <li><a href="#">Admin</a></li>
+
+        </ul>
+        <div class="nav-icons">
+
+        </div>
+    </nav>
+<form action="/submit" method="POST" enctype="multipart/form-data">
+        <h3>Add New Device</h3>
+
+        <label for="Name">Name:</label>
+        <input type="text" id="Name" name="Name" required>
+
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand" required>
+
+        <label for="processor">Processor:</label>
+        <input type="text" id="processor" name="processor" required>
+
+        <label for="ram">RAM:</label>
+        <input type="text" id="ram" name="ram" required>
+
+        <label for="storage">Storage:</label>
+        <input type="text" id="storage" name="storage" required>
+
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+
+        <label for="pic">Picture:</label>
+        <input type="file" id="pic" name="pic" accept="image/*">
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Device List Table -->
+    <div>
+        <h3>Top Products</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Processor</th>
+                    <th>RAM</th>
+                    <th>Storage</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Picture</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for device in content %}
+                    <tr>
+                        <td>{{ device.id }}</td>
+                        <td>{{ device.Name }}</td>
+                        <td>{{ device.brand }}</td>
+                        <td>{{ device.processor }}</td>
+                        <td>{{ device.ram }}</td>
+                        <td>{{ device.storage }}</td>
+                        <td>{{ device.category }}</td>
+                        <td>{{ device.description }}</td>
+                        <td>₹{{ device.price }}</td>
+                        <td>
+                            {% if device.pic %}
+                                <img src="{{ url_for('static', filename='images/' + device.pic) }}" class="product-image" alt="Device Image">
+                            {% else %}
+                                No image
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button class="delete-btn action-btn" onclick="confirmDelete({{ device.id }})">Delete</button>
+                        </td>
+                        <td>
+                            <a href="/update/{{ device.id }}" class="action-btn">Update</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function confirmDelete(product_id) {
+            const confirmation = confirm("Are you sure you want to delete this product?");
+            if (confirmation) {
+                fetch(`/delete/${product_id}`, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.message === 'Device deleted successfully') {
+                        window.location.reload();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Sales</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbar.css') }}" />
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="{{ url_for('static', filename='images/laptop-icon.svg') }}" alt="TechLaptops Logo" class="nav-logo">
+            <span>Laptop Sales</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="laptops">Laptops</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="admin">Admin</a></li>
+
+        </ul>
+        <div class="nav-icons">
+            <button id="wishlistBtn" class="icon-btn">
+                <img src="{{ url_for('static', filename='images/heart.svg') }}" alt="Wishlist">
+                <button id="wishlistBtn" class="icon-btn"></button>
+                <script>
+                    document.getElementById("wishlistBtn").addEventListener("click", function() {
+                    window.location.href = "wishlist";
+                    });
+                </script>
+            </button>
+            <button id="cartBtn" class="icon-btn">
+                <img src="{{ url_for('static', filename='images/cart.svg') }}" alt="Cart">
+                <button id="cartBtn" class="icon-btn"></button>
+                <script>
+                document.getElementById("cartBtn").addEventListener("click", function() {
+                    window.location.href = "cart";
+                });
+                </script>
+            </button>
+        </div>
+    </nav>
+
+    <header style="text-align: center;">
+        <h1>About Us</h1>
+        <p>Your trusted partner for high-quality laptops</p>
+    </header>
+
+    <div class="container" style="text-align: center;">
+        <h2>Who We Are</h2>
+        <p>
+            At Premium Laptops, we are passionate about delivering cutting-edge technology to meet the diverse needs of our customers.
+            Whether you're a student, a business professional, or a gamer, we offer a wide range of laptops to suit your lifestyle.
+        </p>
+        <p>
+            Founded in 2024, our mission is to make advanced computing accessible to everyone. Over the years, we've built a reputation
+            for quality, reliability, and exceptional customer service.
+        </p>
+
+        <h2>Why Choose Us?</h2>
+        <p>
+            Our commitment to excellence sets us apart. Here's what you can expect:
+        </p>
+        <ul style="display: inline-block; text-align: left;">
+            <li>High-performance laptops from leading brands.</li>
+            <li>Comparatively low pricing and exclusive deals.</li>
+            <li>Expert support to guide you in making the right choice.</li>
+            <li>Fast and reliable delivery services.</li>
+        </ul>
+
+        <h2>Meet Our Team</h2>
+        <div class="team" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+            <div class="team-member" style="text-align: center;">
+    <img src="{{ url_for('static', filename='images/y.jpg') }}?background=random&rounded=true" alt="Yasaswi" style="width: 100px; border-radius: 50%;">
+    <h3>Yasaswi</h3>
+    <p>CEO & Founder</p>
+</div>
+<div class="team-member" style="text-align: center;">
+    <img src="{{ url_for('static', filename='images/pk.jpg') }}?background=random&rounded=true" alt="Charan P K" style="width: 100px; border-radius: 50%;">
+    <h3>Charan P K</h3>
+    <p>Chief Technology Officer</p>
+</div>
+<div class="team-member" style="text-align: center;">
+    <img src="{{ url_for('static', filename='images/g.jpg') }}?background=random&rounded=true" alt="Gowtham" style="width: 100px; border-radius: 50%;">
+    <h3>Gowtham</h3>
+    <p>Head of Sales</p>
+</div>
+<div class="team-member" style="text-align: center;">
+<img src="{{ url_for('static', filename='images/p.jpg') }}?background=random&rounded=true" alt="Pavan" style="width: 100px; border-radius: 50%;">
+    <h3>Pavan</h3>
+    <p>Head of Products</p>
+</div>
+<div class="team-member" style="text-align: center;">
+    <img src="{{ url_for('static', filename='images/k.jpg') }}?background=random&rounded=true" alt="Krishna" style="width: 100px; border-radius: 50%;">
+    <h3>Krishna</h3>
+    <p>Head of Inventory</p>
+</div>
+
+        </div>
+
+        <h2>Contact Us</h2>
+        <p>
+            If you have any questions or need assistance, feel free to reach out to us:
+        </p>
+        <p>
+            <strong>Phone:</strong>+1 (800) 123-4567<br>
+            <strong>Email:</strong> support@laptopsales.com
+        </p>
+    </div>
+
+    <footer>
+        <p>© 2024 Laptop Sales. All rights reserved.</p>
+    </footer>
+
+
+</body>
+</html>

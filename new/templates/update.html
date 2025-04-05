@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Device</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+    <style>
+        /* Direct styling for h1 */
+        h1 {
+            text-align: center;
+            color: #FF5733 !important; /* Set the color to a vibrant orange */
+            margin-top: 30px;
+            font-size: 2em; /* Ensure the header is larger and more prominent */
+        }
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 700px;
+            margin: 40px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+
+        input[type="text"], input[type="number"], textarea, input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            background-color: #f4f4f4;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            form {
+                width: 90%;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Update Device</h1>
+<form method="POST" enctype="multipart/form-data">
+    <!-- Name Field -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="Name" value="{{ device.Name }}" required><br><br>
+
+    <!-- Brand Field -->
+    <label for="brand">Brand:</label>
+    <input type="text" id="brand" name="brand" value="{{ device.brand }}" required><br><br>
+
+    <!-- Processor Field -->
+    <label for="processor">Processor:</label>
+    <input type="text" id="processor" name="processor" value="{{ device.processor }}" required><br><br>
+
+    <!-- RAM Field -->
+    <label for="ram">RAM:</label>
+    <input type="text" id="ram" name="ram" value="{{ device.ram }}" required><br><br>
+
+    <!-- Storage Field -->
+    <label for="storage">Storage:</label>
+    <input type="text" id="storage" name="storage" value="{{ device.storage }}" required><br><br>
+
+    <!-- Category Field -->
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category" value="{{ device.category }}" required><br><br>
+
+    <!-- Description Field -->
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" cols="50" required>{{ device.description }}</textarea><br><br>
+
+    <!-- Price Field -->
+    <label for="price">Price:</label>
+    <input type="number" step="0.01" id="price" name="price" value="{{ device.price }}" required><br><br>
+
+    <!-- Image Upload Field (Optional) -->
+    <label for="pic">Image (URL or File):</label><br>
+    <input type="text" id="pic_url" name="pic_url" placeholder="Enter image URL (Optional)" value="{{ device.pic if device.pic and not device.pic.startswith('http') else '' }}"><br><br>
+
+    <input type="file" id="pic" name="pic"><br><br>
+
+    <!-- Submit Button -->
+    <input type="submit" value="Update">
+</form>
+
+</body>
+</html>

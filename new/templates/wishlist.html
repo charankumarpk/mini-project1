@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbar.css') }}" />
+    <style>
+        h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #444;
+}
+/* Wishlist Container */
+#wishlist-items {
+    display: flex;
+    justify-content: center;  /* Centers all cards horizontally */
+    flex-wrap: wrap;          /* Allows cards to wrap to the next line if necessary */
+    gap: 20px;                /* Adds space between the cards */
+    padding: 20px;
+    max-width: 960px;         /* Optional: set a max width for the wishlist section */
+    margin: 0 auto;           /* Centers the container horizontally */
+}
+
+/* Wishlist Item styles */
+.wishlist-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    width: 220px;  /* Card width */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    margin: 0 auto;  /* Centers each individual card horizontally */
+}
+
+/* Image styling */
+.wishlist-item img {
+    width: 100%;         /* Make the image take the full width of the card */
+    height: 180px;       /* Fixed height for the image */
+    object-fit: contain; /* Ensures the whole image is visible, with no cropping */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.wishlist-item h4 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+    font-weight: 600;
+}
+
+.wishlist-item p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.wishlist-item button {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: all 0.3s ease;
+}
+
+.wishlist-item button.add-to-cart {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.wishlist-item button.add-to-cart:hover {
+    background-color: #218838;
+}
+
+.wishlist-item button.remove {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.wishlist-item button.remove:hover {
+    background-color: #c0392b;
+}
+
+.wishlist-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="{{ url_for('static', filename='images/laptop-icon.svg') }}" alt="TechLaptops Logo" class="nav-logo">
+            <span>Laptop Sales</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="laptops">Laptops</a></li>
+            <li><a href="about">About Us</a></li>
+            <li><a href="admin">Admin</a></li>
+        </ul>
+        <div class="nav-icons">
+        <button id="wishlistBtn" class="icon-btn">
+                <img src="{{ url_for('static', filename='images/heart.svg') }}" alt="Wishlist">
+                <button id="wishlistBtn" class="icon-btn"></button>
+                <script>
+                    document.getElementById("wishlistBtn").addEventListener("click", function() {
+                    window.location.href = "#";
+                    });
+                </script>
+            </button>
+            <button id="cartBtn" class="icon-btn">
+                <img src="{{ url_for('static', filename='images/cart.svg') }}" alt="Cart">
+                <button id="cartBtn" class="icon-btn"></button>
+                <script>
+                document.getElementById("cartBtn").addEventListener("click", function() {
+                    window.location.href = "cart";
+                });
+                </script>
+            </button>
+        </div>
+    </nav>
+
+    <h1>Your Wishlist</h1>
+    <div id="wishlist-items"></div>
+
+    <script>
+        // Function to render wishlist items from localStorage
+        function renderWishlistItems() {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const wishlistItemsContainer = document.getElementById('wishlist-items');
+
+            if (wishlist.length === 0) {
+                wishlistItemsContainer.innerHTML = "<p>Your wishlist is empty.</p>";
+                return;
+            }
+
+            wishlistItemsContainer.innerHTML = ""; // Clear the container before rendering
+            wishlist.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('wishlist-item');
+                itemElement.innerHTML = `
+                    <img src="/static/images/${item.pic}" alt="${item.name}" style="width: 100px; height: auto;">
+                    <h4>${item.name}</h4>
+                    <p>${item.brand}</p>
+                    <p>₹${item.price}</p>
+                    <button class="add-to-cart" onclick="addToCartAndRemove(${item.id})">Add to Cart</button>
+                    <button class="remove" onclick="removeFromWishlist(${item.id})">Remove</button>
+                `;
+                wishlistItemsContainer.appendChild(itemElement);
+            });
+        }
+
+        // Function to add an item to the cart and remove it from the wishlist
+        function addToCartAndRemove(product_id) {
+            console.log("Function called with product_id: " + product_id);
+
+            // Fetch wishlist from localStorage
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            // Convert product_id to a string to match the id format in the wishlist
+            const product = wishlist.find(item => item.id === String(product_id));
+
+            console.log("Found product:", product);
+
+            if (product) {
+                addToCart(product); // Add the product to the cart
+                removeFromWishlist(product_id); // Remove the product from wishlist
+            } else {
+                console.error("Product not found in wishlist!");
+            }
+        }
+
+
+        // Function to add an item to the cart
+        function addToCart(product) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Check if the item already exists in the cart
+            const itemExists = cart.some(item => item.id === product.id);
+
+            if (!itemExists) {
+                cart.push(product);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert("Item added to cart!");
+            } else {
+                alert("This item is already in your cart.");
+            }
+        }
+
+        // Function to remove an item from the wishlist
+        function removeFromWishlist(product_id) {
+            console.log(`Removing item with id: ${product_id}`); // Debug log
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+            // Locate and remove the item manually
+            for (let i = 0; i < wishlist.length; i++) {
+                if (wishlist[i].id == product_id) {
+                    wishlist.splice(i, 1); // Remove the item at index `i`
+                    break; // Exit the loop once the item is found and removed
+                }
+            }
+
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            renderWishlistItems(); // Re-render after removal
+        }
+
+        // Load wishlist items on page load
+        window.onload = renderWishlistItems;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Sales</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbar.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}" />
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="{{ url_for('static', filename='images/laptop-icon.svg') }}" alt="TechLaptops Logo" class="nav-logo">
+            <span>Laptop Sales</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="{{ url_for('laptops') }}">Laptops</a></li>
+            <li><a href="about">About Us</a></li>
+            <li><a href="admin">Admin</a></li>
+        </ul>
+        <div class="nav-icons">
+            <button id="wishlistBtn" class="icon-btn">
+                <img src="{{ url_for('static', filename='images/heart.svg') }}" alt="Wishlist">
+                <button id="wishlistBtn" class="icon-btn"></button>
+                <script>
+                    document.getElementById("wishlistBtn").addEventListener("click", function() {
+                    window.location.href = "wishlist";
+                    });
+                </script>
+            </button>
+            <button id="cartBtn" class="icon-btn">
+                <img src="{{ url_for('static', filename='images/cart.svg') }}" alt="Cart">
+                <button id="cartBtn" class="icon-btn"></button>
+                <script>
+                document.getElementById("cartBtn").addEventListener("click", function() {
+                    window.location.href = "cart";
+                });
+                </script>
+            </button>
+        </div>
+    </nav>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Laptop Sales</h1>
+                <h1>Premium Laptops for Everyone</h1>
+                <p>Discover the perfect balance of power and portability</p>
+                <a href="laptops" class="cta-button">Shop Now</a>
+            </div>
+        </section>
+    <footer>
+        <p>&copy; 2024 Laptop Sales. All rights reserved.</p>
+    </footer>
+</body>
+</html>

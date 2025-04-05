@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>laptop sales</title>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laptop Sales</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navbar.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/hero.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/laptops.css') }}" />
+
+
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <span>laptop sales </span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/laptops">laptops</a></li>
+                <li><a href="/about">about</a></li>
+                <li><a href="/cart">cart</a></li>
+                <li><a href="/wishlist">wishlist</a></li>
+                <li><a href="/checkout">checkout</a></li>
+                <li><a href="/thank">thank</a></li>
+              <li><a href="/update">update</a></li>
+            </ul>
+        </nav>
+    </header>
+ </body>
+</html>
+
+
+
+   {% block content%}{%endblock%}
